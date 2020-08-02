@@ -10,6 +10,10 @@ const theme = {
     gray: '#8C8C8B',
     light: '#F2F1F0',
     white: '#FFFFFF',
+    morningglory: '#91ded0',
+    grannysmith: '#869c9f',
+    martinique: '#45375e',
+    outerspace: '#2d3b3d',
   },
   font: {
     // aktiv grotesk

@@ -1,18 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache } from '@apollo/client';
+import React, { useEffect } from 'react';
+import { ThemeProvider, CSSReset, Box } from '@chakra-ui/core';
+import { ApolloProvider } from '@apollo/client';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fab } from '@fortawesome/free-brands-svg-icons';
 
 import Auth from './utils/auth';
+import client from './utils/client-setup';
 
-const client = new ApolloClient({
-  cache: new InMemoryCache(),
-  link: new HttpLink({
-    uri: 'https://spotiql.herokuapp.com/graphql',
-  }),
-});
+import Login from './pages/Login';
+import SpotifyWebPlayer from './components/SpotifyWebPlayer';
+
+import theme from './theme';
+
+library.add(fab);
 
 const App = () => {
   useEffect(() => {
-    console.log(Auth.loggedIn());
     if (Auth.loggedIn()) {
       window.location.hash = '';
     } else if (!Auth.loggedIn() && window.location.hash) {
@@ -30,19 +33,18 @@ const App = () => {
 
   return (
     <ApolloProvider client={client}>
-      <>
-        <div>Hi App</div>
-        {!Auth.loggedIn() ? (
-          <a
-            href={`https://spotiql.herokuapp.com/auth/spotify/login?redirect_uri=${window.location.href}`}>
-            Log In!
-          </a>
-        ) : (
-          <>
-            <button onClick={Auth.logout}>Welcome! Now Log Out</button>
-          </>
-        )}
-      </>
+      <ThemeProvider theme={theme}>
+        <CSSReset />
+        <Box minH='100vh' bg='themeOne.foam'>
+          {!Auth.loggedIn() ? (
+            <Login />
+          ) : (
+            <SpotifyWebPlayer>
+              <button onClick={Auth.logout}>Welcome! Now Log Out</button>
+            </SpotifyWebPlayer>
+          )}
+        </Box>
+      </ThemeProvider>
     </ApolloProvider>
   );
 };

@@ -1,45 +1,30 @@
-/** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import { useTheme } from 'emotion-theming';
-import { transparentize } from 'polished';
+import React from 'react';
+import { Flex, Box, Button, Heading, Icon } from '@chakra-ui/core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const Login = (props) => {
-  const theme = useTheme();
+const Login = () => {
   return (
-    <div
-      css={css`
-        font-family: ${theme.font.extended.fontFamily};
-        background-color: ${theme.colors.darkgray};
-        min-height: 100vh;
-        display: grid;
-        place-items: center;
-
-        div {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          padding: 20px;
-          background-color: ${transparentize(0.7, theme.colors.light)};
-        }
-
-        h1 {
-          color: ${theme.colors.dark};
-        }
-
-        button {
-          font-family: ${theme.font.default.fontFamily};
-        }
-      `}>
-      <div className='rounded'>
-        <h1>KRANZJAMS.fm</h1>
-        <a
-          href={`https://spotiql.herokuapp.com/auth/spotify/login?redirect_uri=${window.location.href}`}>
-          <button>
-            <i className='fab fa-spotify'></i> Log In!
-          </button>
+    <Flex align='center' justify='center' minH='100vh'>
+      <Box
+        rounded='lg'
+        padding='8'
+        textAlign='center'
+        width={['90%', '75%', '50%', '35%']}
+        bg='themeOne.ebonyclay'
+        color='themeOne.foam'>
+        <Heading mb='3'>Kranzjam.FM</Heading>
+        <a href={`https://spotiql.herokuapp.com/auth/spotify/login?redirect_uri=${window.location.href}`}>
+          <Button
+            size='lg'
+            variant='outline'
+            variantColor='themeOne.foam'
+            _hover={{ bg: 'themeOne.foam', color: 'themeOne.violet' }}>
+            <FontAwesomeIcon style={{ marginRight: '5' }} icon={['fab', 'spotify']} as={Icon} />
+            Log In!
+          </Button>
         </a>
-      </div>
-    </div>
+      </Box>
+    </Flex>
   );
 };
 

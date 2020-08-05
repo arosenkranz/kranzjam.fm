@@ -1,7 +1,8 @@
-/** @jsx jsx */
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { ThemeProvider, CSSReset, Box } from '@chakra-ui/core';
 import { ApolloProvider } from '@apollo/client';
-import { css, jsx } from '@emotion/core';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fab } from '@fortawesome/free-brands-svg-icons';
 
 import Auth from './utils/auth';
 import client from './utils/client-setup';
@@ -9,8 +10,9 @@ import client from './utils/client-setup';
 import Login from './pages/Login';
 import SpotifyWebPlayer from './components/SpotifyWebPlayer';
 
-import GlobalStyles from './styles/GlobalStyles';
-import Theme from './styles/Theme';
+import theme from './theme';
+
+library.add(fab);
 
 const App = () => {
   useEffect(() => {
@@ -31,9 +33,9 @@ const App = () => {
 
   return (
     <ApolloProvider client={client}>
-      <GlobalStyles />
-      <Theme>
-        <div>
+      <ThemeProvider theme={theme}>
+        <CSSReset />
+        <Box minH='100vh' bg='themeOne.foam'>
           {!Auth.loggedIn() ? (
             <Login />
           ) : (
@@ -41,8 +43,8 @@ const App = () => {
               <button onClick={Auth.logout}>Welcome! Now Log Out</button>
             </SpotifyWebPlayer>
           )}
-        </div>
-      </Theme>
+        </Box>
+      </ThemeProvider>
     </ApolloProvider>
   );
 };

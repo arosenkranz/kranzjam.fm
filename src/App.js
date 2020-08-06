@@ -9,6 +9,7 @@ import client from './utils/client-setup';
 
 import Login from './pages/Login';
 import SpotifyWebPlayer from './components/SpotifyWebPlayer';
+import Main from './pages/Main';
 
 import theme from './theme';
 
@@ -41,6 +42,7 @@ const App = () => {
           ) : (
             <SpotifyWebPlayer>
               <button onClick={Auth.logout}>Welcome! Now Log Out</button>
+              <Main />
             </SpotifyWebPlayer>
           )}
         </Box>

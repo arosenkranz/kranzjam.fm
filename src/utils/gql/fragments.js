@@ -53,3 +53,16 @@ export const CATEGORY_FRAGMENT = gql`
     }
   }
 `;
+
+export const USER_FRAGMENT = gql`
+  fragment UserFragment on User {
+    displayName
+    email
+    spotifyUrl
+    image {
+      url
+    }
+    id
+    product
+  }
+`;

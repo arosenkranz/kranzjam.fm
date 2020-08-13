@@ -5,7 +5,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 
 import Auth from './utils/auth';
-import client from './utils/client-setup';
+import client from './utils/gql/client-setup';
 
 import Login from './pages/Login';
 import SpotifyWebPlayer from './components/SpotifyWebPlayer';

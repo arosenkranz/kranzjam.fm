@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useLazyQuery, useQuery } from '@apollo/react-hooks';
-import { QUERY_SEARCH } from '../utils/queries';
+import { QUERY_SEARCH } from '../utils/gql/queries/general';
 
 const Main = () => {
   const [search, { called, loading, data }] = useLazyQuery(QUERY_SEARCH);

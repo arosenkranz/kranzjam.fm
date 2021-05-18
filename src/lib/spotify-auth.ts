@@ -1,6 +1,6 @@
 import querystring from 'querystring';
 
-const getAccessToken = async (code: string | string[]) => {
+export const getAccessToken = async (code: string | string[]) => {
   const response = await fetch('https://accounts.spotify.com/api/token', {
     method: 'POST',
     headers: {

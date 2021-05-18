@@ -36,7 +36,7 @@ export const parseCookies = (req: NextApiRequest) => {
   return parse(cookie || '');
 };
 
-const getTokenCookie = (req: NextApiRequest): string => {
+export const getTokenCookie = (req: NextApiRequest): string => {
   const cookies = parseCookies(req);
   return cookies[process.env.SPOTIFY_COOKIE_STATEKEY];
 };

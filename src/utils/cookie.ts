@@ -1,9 +1,9 @@
-import { serialize, parse } from 'cookie';
 import { NextApiRequest, NextApiResponse } from 'next';
+import { serialize, parse } from 'cookie';
 
 const TOKEN_NAME = process.env.SPOTIFY_COOKIE_STATEKEY;
 
-export const MAX_AGE = 60 * 60 * 8; // 8 hours
+export const MAX_AGE = 60 * 60 * 10;
 
 export const setTokenCookie = (res: NextApiResponse, token: string): void => {
   const cookie = serialize(TOKEN_NAME, token, {

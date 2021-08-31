@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { generateRandomString } from '@utils/generate-string';
 import { setTokenCookie } from '@utils/cookie';
 
-const handler = (req: NextApiRequest, res: NextApiResponse) => {
+const handler = (req: NextApiRequest, res: NextApiResponse): void => {
   const state = generateRandomString(16);
   setTokenCookie(res, state);
 

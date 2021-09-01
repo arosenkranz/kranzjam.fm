@@ -1,9 +1,8 @@
-export interface HashParams {
-  access_token: string;
-  refresh_token: string;
-}
+export type HashParams = {
+  [k: string]: string;
+};
 
-export const getHashParams = () => {
+export const getHashParams = (): HashParams => {
   return window.location.hash
     ? window.location.hash
         ?.substr(1)

@@ -1,9 +1,8 @@
-import { Http2ServerResponse } from 'http2';
-
 class AuthService {
   loggedIn(): boolean {
     // Checks if there is a saved token and it's still valid
     const token = this.getToken();
+
     return !!token && !this.isTokenExpired();
   }
 
@@ -16,7 +15,9 @@ class AuthService {
   }
 
   getToken(): string {
-    return localStorage.getItem('access_token');
+    return typeof window !== 'undefined'
+      ? localStorage.getItem('access_token')
+      : null;
   }
 
   getRefreshToken(): string {
@@ -43,7 +44,14 @@ class AuthService {
     window.location.assign('/');
   }
 
-  async refreshLogin() {
+  async refreshLogin(): Promise<{
+    access_token: string;
+    refresh_token: string;
+  }> {
+    if (typeof window !== 'undefined') {
+      return { access_token: '', refresh_token: '' };
+    }
+
     const refreshToken = localStorage.getToken('refresh_token');
 
     const queryUrl = `/api/refresh?refresh_token=${refreshToken}`;
@@ -53,12 +61,12 @@ class AuthService {
       if (!refreshResponse.ok) {
         throw new Error('issue with the refresh!');
       }
-      const { access_token: accessToken, refresh_token: refreshToken } =
-        await refreshResponse.json();
+      const tokens = await refreshResponse.json();
 
-      localStorage.setItem('access_token', accessToken);
-      localStorage.setItem('refresh_token', refreshToken);
+      localStorage.setItem('access_token', tokens.access_Token);
+      localStorage.setItem('refresh_token', tokens.refresh_Token);
       localStorage.setItem('token_timestamp', String(Date.now() / 1000));
+      return tokens;
     } catch (e) {
       console.error(e);
       this.logout();
